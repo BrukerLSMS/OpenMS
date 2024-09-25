@@ -1,0 +1,25 @@
+# DON'T PANIC
+# in case of trouble, replace this file with:
+# https://github.com/BrukerLSMS/iac-p8ser-cicd-templates/blob/main/COPY-ME/.github/workflows/deploy.yaml
+
+
+name: Build & Push Pipeline
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    paths-ignore:
+      - "doc/**"
+      - "**/*.md"
+  pull_request:
+    types: [ opened, synchronize, ready_for_review, closed ]
+jobs:
+  cicd:
+    uses: BrukerLSMS/iac-p8ser-cicd-templates/.github/workflows/deploy.yaml@main
+    secrets: inherit
+    with:
+      runner: "ubuntu-latest"
+      setup: "p8s"
+      # go-version: "1.22"
+      # python-version: "3.10"
+      # disabled to use cicd default
